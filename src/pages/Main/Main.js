@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button, Card, Image } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
 import API from '../../utils/API';
 
@@ -32,8 +31,7 @@ class Main extends Component {
     else {
       return (
         <BrewCard 
-          data={this.state.brewery} 
-        />
+          data={this.state.brewery} />
       );
     };
   };
