@@ -2,8 +2,8 @@ import React from 'react';
 import './Filter.css';
 
 const Filter = props =>
-  <div className="text-center">
-    <span>Filter By: </span>
+  <div className="text-right">
+    <span>Sort By: </span>
     <select onChange={props.sort}>
       <option>-------</option>
       <option>{props.filter1}</option>

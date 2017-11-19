@@ -24,5 +24,24 @@ export default {
       .then(function(results) {
         return results;
       });
+  },
+
+  getBrewery: function (brewery) {
+    let filterBrewery = [];
+
+    return axios.get('https://s3.amazonaws.com/bruvue-data/beer-data.json')
+      .then(function(results) {
+        results.data.map(result => {
+          if(result['Brewery Name'].toLowerCase().includes(brewery.toLowerCase().trim())) {
+            filterBrewery.push(result);
+          } 
+        })
+
+        if (filterBrewery.length > 1) {
+          return filterBrewery;
+        } else {
+          return results.data;
+        }
+      });
   }
 }

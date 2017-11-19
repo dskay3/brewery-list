@@ -3,12 +3,14 @@ import { Divider } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
 import Load from '../../components/Load';
 import MessageBox from '../../components/MessageBox';
+import FilterForm from '../../components/FilterForm';
 import Filter from '../../components/Filter';
 import API from '../../utils/API';
 
 class Main extends Component {
   state = {
-    brews: []
+    brews: [],
+    brewery: ""
   };
 
   componentDidMount() {
@@ -151,6 +153,40 @@ class Main extends Component {
     });
   }
 
+  handleInputChange = event => {
+    const { name, value } = event.target;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+
+    if(this.state.brewery !== "") {
+      API.getBrewery(this.state.brewery)
+        .then(results => {
+          this.setState({
+            brews: results,
+            brewery: ""
+          });
+        });
+    }
+    else {
+      alert('Please enter a brewery name to filter data');
+    };
+  };
+
+  handleReset = event => {
+    this.setState({
+      brews: [],
+      brewery: ""
+    });
+
+    this.getData();
+  }
+
   render() {
     if (this.state.brews.length === 0) {
       return (
@@ -163,7 +199,18 @@ class Main extends Component {
         <div>
           <MessageBox
             header="Welcome to the Brew-List Application"
-            body="Below you will brew data taken from https://s3.amazonaws.com/bruvue-data/beer-data.json. Data can be filtered utilizing the Filter By selection." />
+            body="The Brew Results below displays brew data taken from https://s3.amazonaws.com/bruvue-data/beer-data.json. Data can be searched via the Search Form and filtered utilizing the Filter By selection." />
+
+          <FilterForm 
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
+            brewery={this.state.brewery}
+            brew={this.state.brew}
+            inputName="brewery"
+            formHeader="Filter Form"
+            label1="Brewery Name"
+            placeholder1="The Amazing Brewery"
+            handleReset={this.handleReset} />
 
           <Filter 
             sort={this.sort}
