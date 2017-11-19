@@ -199,7 +199,7 @@ class Main extends Component {
         <div>
           <MessageBox
             header="Welcome to the Brew-List Application"
-            body="The Brew Results below displays brew data taken from https://s3.amazonaws.com/bruvue-data/beer-data.json. Data can be searched via the Search Form and filtered utilizing the Filter By selection." />
+            body="The Brew Results below displays brew data taken from https://s3.amazonaws.com/bruvue-data/beer-data.json. Data can be searched via the Filter Form and sorted utilizing the Sort By selection." />
 
           <FilterForm 
             handleInputChange={this.handleInputChange}
