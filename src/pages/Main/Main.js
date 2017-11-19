@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { Divider } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
+import Load from '../../components/Load';
+import Filter from '../../components/Filter';
 import API from '../../utils/API';
 
 class Main extends Component {
@@ -26,16 +29,24 @@ class Main extends Component {
       this.sortBeerName(this.state.brews);
     }
 
-    else if (event.target.value === 'Beer Company') {
-      this.sortBeerCompany(this.state.brews);
+    else if (event.target.value === 'Brewery') {
+      this.sortBrewery(this.state.brews);
     }
 
     else if (event.target.value === 'ABV') {
       this.sortABV(this.state.brews);
     }
 
-    else {
+    else if (event.target.value === 'Beer Style') {
+      this.sortStyle(this.state.brews);
+    }
+
+    else if (event.target.value === 'IBU') {
       this.sortIBU(this.state.brews);
+    }
+    
+    else {
+      this.getData();
     };
   };
 
@@ -53,7 +64,7 @@ class Main extends Component {
     });
   }
 
-  sortBeerCompany = data => {
+  sortBrewery = data => {
     data.sort(function(a, b) {
       // Added trims because data had some leading white spaces
       const companyA = a["Brewery Name"].trim();
@@ -67,21 +78,34 @@ class Main extends Component {
     });
   }
 
-  sortABV = data => {
+  sortStyle= data => {
+    data.sort(function(a, b) {
+      // Added trims because data had some leading white spaces
+      const styleA = a["Beer Style"].trim();
+      const styleB = b["Beer Style"].trim();
+
+      return (styleA < styleB) ? -1 : (styleA > styleB) ? 1 : 0;
+    });
+
+    this.setState({
+      brews: data
+    });
+  }
+
+  sortABV = data => {    
     data.sort(function(a, b) {
       let abvA = a.ABV;
       let abvB = b.ABV;
 
       if (abvA.includes("%")) {
         abvA = parseFloat(a.ABV.slice(0, -1));
+      } else {
+        abvA = parseFloat(a.ABV);
       }
 
       if (abvB.includes("%")) {
         abvB = parseFloat(b.ABV.slice(0, -1));
-      }
-
-      else {
-        abvA = parseFloat(a.ABV);
+      } else {
         abvB = parseFloat(b.ABV);
       }
 
@@ -129,20 +153,22 @@ class Main extends Component {
   render() {
     if (this.state.brews.length === 0) {
       return (
-        <p>NO DATA</p>
+        <Load />
       );
     }
     
     else {
       return (
         <div>
-          <select className="" onChange={this.sort}>
-            <option>---</option>
-            <option>Beer Name</option>
-            <option>Beer Company</option>
-            <option>ABV</option>
-            <option>IBU</option>
-          </select>
+          <Filter 
+            sort={this.sort}
+            filter1="Beer Name"
+            filter2="Beer Style"
+            filter3="Brewery"
+            filter4="ABV"
+            filter5="IBU" />
+
+          <Divider horizontal>Brew Results</Divider>
 
           <BrewCard 
             data={this.state.brews} />

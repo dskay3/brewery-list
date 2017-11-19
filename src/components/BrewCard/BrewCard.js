@@ -8,17 +8,17 @@ const BrewCard = props =>
       <Card className="card" key={index}>
         <Card.Content>
           <Card.Header>
-            {result["Beer Name"]}
+            Beer Name: <span className="beer-name">{result["Beer Name"]}</span>
           </Card.Header>
 
           <Card.Meta>
-            {result["Brewery Name"]}
+            Brewery: {result["Brewery Name"]}
           </Card.Meta>
 
           <Card.Description>
-            <p>Beer Style: {result["Beer Style"]}</p>
-            <p>ABV: {result.ABV}</p>
-            <p>IBU: {result.IBU}</p>
+            <p><strong>Beer Style: </strong>{result["Beer Style"]}</p>
+            <p><strong>ABV: </strong>{result.ABV}</p>
+            <p><strong>IBU: </strong>{result.IBU}</p>
           </Card.Description>
 
         </Card.Content>

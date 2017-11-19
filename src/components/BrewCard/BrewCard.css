@@ -2,3 +2,8 @@
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+.beer-name {
+  font-weight: normal;
+  font-size: 18px;
+}
