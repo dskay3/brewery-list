@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Divider } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
 import Load from '../../components/Load';
+import MessageBox from '../../components/MessageBox';
 import Filter from '../../components/Filter';
 import API from '../../utils/API';
 
@@ -160,6 +161,10 @@ class Main extends Component {
     else {
       return (
         <div>
+          <MessageBox
+            header="Welcome to the Brew-List Application"
+            body="Below you will brew data taken from https://s3.amazonaws.com/bruvue-data/beer-data.json. Data can be filtered utilizing the Filter By selection." />
+
           <Filter 
             sort={this.sort}
             filter1="Beer Name"
