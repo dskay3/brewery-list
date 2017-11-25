@@ -37,7 +37,7 @@ export default {
           } 
         })
 
-        if (filterBrewery.length > 1) {
+        if (filterBrewery.length >= 1) {
           return filterBrewery;
         } else {
           return results.data;
