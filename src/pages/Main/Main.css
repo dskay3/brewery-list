@@ -1,0 +1,17 @@
+#page-numbers {
+  list-style: none;
+  display: flex;
+}
+
+#page-numbers > li {
+  margin-right: 1em;
+  user-select: none;
+  cursor: pointer;
+}
+
+#page-numbers li.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+#page-numbers li:hover:not(.active) {background-color: #ddd;}

@@ -6,11 +6,25 @@ import MessageBox from '../../components/MessageBox';
 import FilterForm from '../../components/FilterForm';
 import Filter from '../../components/Filter';
 import API from '../../utils/API';
+import { Card } from 'semantic-ui-react';
+import './Main.css';
 
 class Main extends Component {
-  state = {
-    brews: [],
-    brewery: ""
+  constructor() {
+    super();
+    this.state = {
+      brews: [],
+      brewery: "",
+      currentPage: 1,
+      totalPages: 35
+    };
+    this.handleClick = this.handleClick.bind(this);
+  };
+
+  handleClick = event => {
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
   };
 
   componentDidMount() {
@@ -195,6 +209,37 @@ class Main extends Component {
     }
     
     else {
+      const { brews, currentPage, totalPages } = this.state;
+      
+      const indexOfLastBrew = currentPage * totalPages;
+      const indexOfFirstBrew = indexOfLastBrew - totalPages;
+      const currentBrews = brews.slice(indexOfFirstBrew, indexOfLastBrew);
+  
+      const pageNumbers = [];
+      for (let i = 1; i <= Math.ceil(brews.length / totalPages); i++) {
+        pageNumbers.push(i);
+      }
+  
+      const renderBrewData = currentBrews.map((brews, index) => {
+        return(
+          <BrewCard
+            index={index}
+            data={brews} />
+        );
+      });
+
+      const renderPageNumbers = pageNumbers.map(number => {
+        return (
+          <li
+            key={number}
+            id={number}
+            onClick={this.handleClick}
+          >
+            {number}
+          </li>
+        );
+      });
+
       return (
         <div>
           <MessageBox
@@ -212,6 +257,10 @@ class Main extends Component {
             placeholder1="The Amazing Brewery"
             handleReset={this.handleReset} />
 
+          <ul id="page-numbers">
+            {renderPageNumbers}
+          </ul>
+
           <Filter 
             sort={this.sort}
             filter1="Beer Name"
@@ -222,8 +271,9 @@ class Main extends Component {
 
           <Divider horizontal>Brew Results</Divider>
 
-          <BrewCard 
-            data={this.state.brews} />
+          <Card.Group>
+            {renderBrewData}
+          </Card.Group>
         </div>
       );
     };
