@@ -1,20 +1,5 @@
-#page-numbers {
-  list-style: none;
+.pagination {
   display: flex;
-}
-
-#page-numbers > a {
-  margin-right: 1em;
-  user-select: none;
-  cursor: pointer;
-}
-
-#page-numbers a:active,
-#page-numbers a:focus {
-  background-color: #4CAF50 !important;
-  color: white;
-}
-
-#page-numbers a:hover:not(.active) {
-  background-color: #ddd;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }

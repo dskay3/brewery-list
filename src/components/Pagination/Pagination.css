@@ -1,0 +1,16 @@
+a {
+  padding: 5px;
+  user-select: none;
+  cursor: pointer;
+  margin: auto;
+}
+
+a:active,
+a:focus {
+  background-color: #4CAF50 !important;
+  color: white;
+}
+
+a:hover:not(.active) {
+  background-color: #ddd;
+}

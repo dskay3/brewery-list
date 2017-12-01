@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider, Table, Menu } from 'semantic-ui-react';
+import { Divider } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
 import Load from '../../components/Load';
 import MessageBox from '../../components/MessageBox';
@@ -7,6 +7,7 @@ import FilterForm from '../../components/FilterForm';
 import Filter from '../../components/Filter';
 import API from '../../utils/API';
 import { Card } from 'semantic-ui-react';
+import Pagination from '../../components/Pagination';
 import './Main.css';
 
 class Main extends Component {
@@ -16,7 +17,7 @@ class Main extends Component {
       brews: [],
       brewery: "",
       currentPage: 1,
-      totalPages: 35
+      totalItems: 50
     };
     this.handleClick = this.handleClick.bind(this);
   };
@@ -209,37 +210,33 @@ class Main extends Component {
     }
     
     else {
-      const { brews, currentPage, totalPages } = this.state;
+      const { brews, currentPage, totalItems } = this.state;
       
-      const indexOfLastBrew = currentPage * totalPages;
-      const indexOfFirstBrew = indexOfLastBrew - totalPages;
+      const indexOfLastBrew = currentPage * totalItems;
+      const indexOfFirstBrew = indexOfLastBrew - totalItems;
       const currentBrews = brews.slice(indexOfFirstBrew, indexOfLastBrew);
   
       const pageNumbers = [];
-      for (let i = 1; i <= Math.ceil(brews.length / totalPages); i++) {
+      for (let i = 1; i <= Math.ceil(brews.length / totalItems); i++) {
         pageNumbers.push(i);
       }
   
       const renderBrewData = currentBrews.map((brews, index) => {
         return(
           <BrewCard
+            key={index}
             index={index}
             data={brews} />
         );
       });
 
-      const renderPageNumbers = pageNumbers.map(number => {
+      const renderPageNumbers = pageNumbers.map(page => {
         return (
-          // <a
-          //   key={number}
-          //   id={number}
-          //   onClick={this.handleClick}
-          // >
-          //   {number}
-          // </a>
-          <Menu.Item as='a' onClick={this.handleClick}>
-            {number}
-          </Menu.Item>
+          <Pagination
+            key={page}
+            id={page}
+            handleClick={this.handleClick} 
+            number={page} />
         );
       });
 
@@ -260,10 +257,10 @@ class Main extends Component {
             placeholder1="The Amazing Brewery"
             handleReset={this.handleReset} />
 
-          <Menu floated='right' pagination>
+          <div className="pagination">
             {renderPageNumbers}
-          </Menu>
-
+          </div>
+          
           <Filter 
             sort={this.sort}
             filter1="Beer Name"
@@ -277,10 +274,6 @@ class Main extends Component {
           <Card.Group>
             {renderBrewData}
           </Card.Group>
-
-          {/* <ul id="page-numbers">
-            {renderPageNumbers}
-          </ul> */}
         </div>
       );
     };
