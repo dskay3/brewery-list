@@ -184,7 +184,8 @@ class Main extends Component {
         .then(results => {
           this.setState({
             brews: results,
-            brewery: ""
+            brewery: "",
+            currentPage: 1
           });
         });
     }
