@@ -197,7 +197,8 @@ class Main extends Component {
   handleReset = event => {
     this.setState({
       brews: [],
-      brewery: ""
+      brewery: "",
+      currentPage: 1
     });
 
     this.getData();
