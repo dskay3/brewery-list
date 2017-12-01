@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Divider } from 'semantic-ui-react';
+import { Divider, Table, Menu } from 'semantic-ui-react';
 import BrewCard from '../../components/BrewCard';
 import Load from '../../components/Load';
 import MessageBox from '../../components/MessageBox';
@@ -230,13 +230,16 @@ class Main extends Component {
 
       const renderPageNumbers = pageNumbers.map(number => {
         return (
-          <li
-            key={number}
-            id={number}
-            onClick={this.handleClick}
-          >
+          // <a
+          //   key={number}
+          //   id={number}
+          //   onClick={this.handleClick}
+          // >
+          //   {number}
+          // </a>
+          <Menu.Item as='a' onClick={this.handleClick}>
             {number}
-          </li>
+          </Menu.Item>
         );
       });
 
@@ -257,9 +260,9 @@ class Main extends Component {
             placeholder1="The Amazing Brewery"
             handleReset={this.handleReset} />
 
-          <ul id="page-numbers">
+          <Menu floated='right' pagination>
             {renderPageNumbers}
-          </ul>
+          </Menu>
 
           <Filter 
             sort={this.sort}
@@ -274,6 +277,10 @@ class Main extends Component {
           <Card.Group>
             {renderBrewData}
           </Card.Group>
+
+          {/* <ul id="page-numbers">
+            {renderPageNumbers}
+          </ul> */}
         </div>
       );
     };

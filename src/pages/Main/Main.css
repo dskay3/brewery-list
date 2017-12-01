@@ -3,15 +3,18 @@
   display: flex;
 }
 
-#page-numbers > li {
+#page-numbers > a {
   margin-right: 1em;
   user-select: none;
   cursor: pointer;
 }
 
-#page-numbers li.active {
-  background-color: #4CAF50;
+#page-numbers a:active,
+#page-numbers a:focus {
+  background-color: #4CAF50 !important;
   color: white;
 }
 
-#page-numbers li:hover:not(.active) {background-color: #ddd;}
+#page-numbers a:hover:not(.active) {
+  background-color: #ddd;
+}

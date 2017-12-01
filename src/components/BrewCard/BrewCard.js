@@ -3,7 +3,7 @@ import { Card } from 'semantic-ui-react';
 import './BrewCard.css';
 
 const BrewCard = props => 
-  <Card className="card" key={props.data.index} >
+  <Card className="card" key={props.index} >
     <Card.Content>
       <Card.Header>
         Beer Name: <span className="beer-name">{props.data["Beer Name"]}</span>
